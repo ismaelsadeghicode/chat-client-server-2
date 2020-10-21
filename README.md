@@ -26,10 +26,19 @@ summery:
 
 3- User --> User
     * direct messages
-    * broadcast messages
+    * broadcast messages / group messaging
 
 Commands:
     login <user> <password>
     logoff
+
+    msg <user> text...
+    guest: "msg jim Hello world" <--- send
+    jim: "msg guest Hello world" <--- recv
+    
+    #topic <-- chatroom / group chat
+    join #topic
+    send: msg #topic body ..
+    recv: msg #topic:<login> body .. 
 
 ````
