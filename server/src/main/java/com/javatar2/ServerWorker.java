@@ -50,6 +50,8 @@ public class ServerWorker extends Thread {
                     handleMessage(tokensMsg);
                 } else if ("join".equalsIgnoreCase(cmd)) {
                     handleJoin(tokens);
+                } else if ("level".equalsIgnoreCase(cmd)) {
+                    handleLevel(tokens);
                 } else {
                     String msg = "unknown " + cmd + "\n";
                     outputStream.write(msg.getBytes());
@@ -59,6 +61,13 @@ public class ServerWorker extends Thread {
             }
         }
         clientSoket.close();
+    }
+
+    private void handleLevel(String[] tokens) {
+        if (tokens.length > 1) {
+            String topic = tokens[1];
+            topicSet.remove(topic);
+        }
     }
 
     public boolean isMemberOfTopic(String topic) {
@@ -82,9 +91,9 @@ public class ServerWorker extends Thread {
 
         List<ServerWorker> workerList = server.getServerWorkers();
         for (ServerWorker worker : workerList) {
-            if(isTopic){
-                if(worker.isMemberOfTopic(sendTo)){
-                    String outMsg = "msg" + login + " " + body + "\n";
+            if (isTopic) {
+                if (worker.isMemberOfTopic(sendTo)) {
+                    String outMsg = "msg" + sendTo + ":" + login + " " + body + "\n";
                     worker.send(outMsg);
                 }
             } else {

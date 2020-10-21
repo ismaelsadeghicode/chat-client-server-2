@@ -38,6 +38,7 @@ Commands:
     
     #topic <-- chatroom / group chat
     join #topic
+    level #topic
     send: msg #topic body ..
     recv: msg #topic:<login> body .. 
 
