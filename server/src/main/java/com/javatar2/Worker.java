@@ -7,6 +7,7 @@ import java.net.Socket;
 
 public class Worker extends Thread {
     private final Socket clientSoket;
+    private String login =null;
 
     public Worker(Socket clientSoket) {
         this.clientSoket = clientSoket;
@@ -53,9 +54,11 @@ public class Worker extends Thread {
             String login = tokens[1];
             String password = tokens[2];
 
-            if(login.equals("guest") && password.equals("guest")){
+            if((login.equals("guest") && password.equals("guest")) || (login.equals("jim") && password.equals("jim"))){ // login jim jim
                 String msg = "Ok Login";
                 outputStream.write(msg.getBytes());
+                this.login = login;
+                System.out.println("User logged in succesfully " + login);
             } else {
                 String msg = "Error Login";
                 outputStream.write(msg.getBytes());
