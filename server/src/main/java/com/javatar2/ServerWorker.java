@@ -93,12 +93,12 @@ public class ServerWorker extends Thread {
         for (ServerWorker worker : workerList) {
             if (isTopic) {
                 if (worker.isMemberOfTopic(sendTo)) {
-                    String outMsg = "msg" + sendTo + ":" + login + " " + body + "\n";
+                    String outMsg = "msg " + sendTo + ":" + login + " " + body + "\n";
                     worker.send(outMsg);
                 }
             } else {
                 if (sendTo.equalsIgnoreCase(worker.getLogin())) {
-                    String outMsg = "msg " + login + "" + body + "\n";
+                    String outMsg = "msg " + login + " " + body + "\n";
                     worker.send(outMsg);
                 }
             }
@@ -130,7 +130,7 @@ public class ServerWorker extends Thread {
             String password = tokens[2];
 
             if ((login.equals("guest") && password.equals("guest")) || (login.equals("jim") && password.equals("jim"))) { // login jim jim
-                String msg = "Ok Login";
+                String msg = "Ok Login\n";
                 outputStream.write(msg.getBytes());
                 this.login = login;
                 System.out.println("User logged in succesfully " + login);
@@ -141,7 +141,7 @@ public class ServerWorker extends Thread {
                 for (ServerWorker worker : workerList) {
                     if (worker.getLogin() != null) {
                         if (!login.equals(worker.getLogin())) {
-                            String msg2 = "online" + worker.getLogin() + '\n';
+                            String msg2 = "online " + worker.getLogin() + '\n';
                             send(msg2);
                         }
                     }
